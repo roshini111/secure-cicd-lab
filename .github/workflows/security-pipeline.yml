@@ -17,4 +17,5 @@ jobs:
       - name: Verify pipeline works
         run: echo "Secure CI/CD pipeline started successfully"
 
-        
+      - name: Run Semgrep SAST
+        uses: returntocorp/semgrep-action@v1
