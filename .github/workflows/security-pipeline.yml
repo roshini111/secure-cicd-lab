@@ -19,3 +19,11 @@ jobs:
 
       - name: Run Semgrep SAST
         uses: returntocorp/semgrep-action@v1
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pip-audit
+
+      - name: Run pip-audit (SCA)
+        run: pip-audit
