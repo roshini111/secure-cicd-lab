@@ -27,3 +27,9 @@ jobs:
 
       - name: Run pip-audit (SCA)
         run: pip-audit || true
+
+       - name: Run Gitleaks Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
