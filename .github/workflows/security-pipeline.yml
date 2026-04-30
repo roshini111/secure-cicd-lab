@@ -72,14 +72,13 @@ jobs:
         uses: sigstore/cosign-installer@v3.7.0
 
       - name: Sign Docker image with Cosign
-        
         run: cosign sign --yes ghcr.io/${{ github.repository_owner }}/secure-cicd-lab:latest
       
       - name: Verify Docker image signature
-       
-        run: cosign verify ghcr.io/${{ github.repository_owner }}/secure-cicd-lab:latest \
-           --certificate-identity-regexp ".*" \
-           --certificate-oidc-issuer https://token.actions.githubusercontent.com
+        run: |
+         cosign verify ghcr.io/${{ github.repository_owner }}/secure-cicd-lab:latest \
+         --certificate-identity-regexp ".*" \
+         --certificate-oidc-issuer https://token.actions.githubusercontent.com
 
       - name: Run OWASP ZAP (DAST)
         uses: zaproxy/action-baseline@v0.10.0
