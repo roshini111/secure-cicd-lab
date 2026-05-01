@@ -28,13 +28,15 @@ jobs:
 
       - name: Check suspicious commands in repo
         run: |
-           echo "Checking for suspicious CI/CD commands and ports..."
-           if grep -RInE "(curl .*http|wget .*http|nc |netcat|bash .*http|sh .*http|:4444|:1337|:9001|:8081)" . --exclude-dir=.git; then
-           echo "Suspicious command or port found. Failing pipeline."
-           exit 1
-           else
-           echo "No suspicious commands or ports found."
-           fi
+         echo "Checking for suspicious CI/CD commands and ports..."
+         if grep -RInE "(curl .*http|wget .*http|nc |netcat|bash .*http|sh .*http|:4444|:1337|:9001|:8081)" . \
+         --exclude-dir=.git \
+         --exclude=.github/workflows/security-pipeline.yml; then
+         echo "Suspicious command or port found. Failing pipeline."
+         exit 1
+         else
+         echo "No suspicious commands or ports found."
+         fi
 
       - name: Verify pipeline works
         run: echo "Secure CI/CD pipeline started successfully"
