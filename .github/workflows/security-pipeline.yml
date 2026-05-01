@@ -25,6 +25,17 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
          egress-policy: allow
+         allowed-endpoints: |
+            github.com:443
+            api.github.com:443
+            objects.githubusercontent.com:443
+            raw.githubusercontent.com:443
+            codeload.github.com:443
+            ghcr.io:443
+            pkg-containers.githubusercontent.com:443
+            fulcio.sigstore.dev:443
+            rekor.sigstore.dev:443
+            tuf-repo-cdn.sigstore.dev:443
 
       - name: Check suspicious commands in repo
         run: |
