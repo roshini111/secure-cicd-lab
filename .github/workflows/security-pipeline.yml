@@ -87,7 +87,8 @@ jobs:
           image-ref: ghcr.io/${{ github.repository_owner }}/secure-cicd-lab:latest
           format: table
           output: trivy-report.txt
-        continue-on-error: true
+          severity: CRITICAL,HIGH
+          exit-code: 1
       
 
       - name: Upload Trivy Report
