@@ -21,6 +21,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Check suspicious commands in repo
+        run: |
+           echo "Checking for suspicious CI/CD commands and ports..."
+           if grep -RInE "(curl .*http|wget .*http|nc |netcat|bash .*http|sh .*http|:4444|:1337|:9001|:8081)" . --exclude-dir=.git; then
+           echo "Suspicious command or port found. Failing pipeline."
+           exit 1
+           else
+           echo "No suspicious commands or ports found."
+           fi
+
       - name: Verify pipeline works
         run: echo "Secure CI/CD pipeline started successfully"
 
